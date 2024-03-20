@@ -18,40 +18,23 @@
 		"id": 2
 	},
 	{
-		"title": "Cañoncitos",
-		"description": "Con relleno de dulce de leche",
-		"price": 3500,
-		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142068/Panader%C3%ADa%20S%C3%A1nchez/ca%C3%B1oncitos_aiqs19.jpg",
-		"code": "A3",
-		"stock": 15,
-		"id": 3
-	},
-	{
-		"title": "Chipaquitos",
-		"description": "No apto para vegetarianos",
-		"price": 1600,
-		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142069/Panader%C3%ADa%20S%C3%A1nchez/chipaquitos_t3j6kc.jpg",
-		"code": "A4",
-		"stock": 15,
-		"id": 4
-	},
-	{
 		"title": "Cupcakes",
 		"description": "Con o sin baño de chocolate negro",
 		"price": 2500,
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142068/Panader%C3%ADa%20S%C3%A1nchez/cupcakes_choc_aaioeb.jpg",
 		"code": "A5",
 		"stock": 15,
-		"id": 5
+		"id": 3
 	},
 	{
-		"title": "Facturas",
-		"description": "Gran variedad de facturas de crema pastelera, dulce de membrillo y dulce de leche con y sin decoraciones",
-		"price": 1100,
-		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142069/Panader%C3%ADa%20S%C3%A1nchez/facturastodas_povmah.jpg",
+		"id": 4,
+		"title": "Chipaquitos",
+		"description": "No apto para vegetarianos",
 		"code": "A6",
-		"stock": 15,
-		"id": 6
+		"price": 1600,
+		"status": true,
+		"stock": 12,
+		"category": "salado"
 	},
 	{
 		"title": "Galletas",
@@ -60,7 +43,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142070/Panader%C3%ADa%20S%C3%A1nchez/galle_chips_choc_einnte.jpg",
 		"code": "A7",
 		"stock": 15,
-		"id": 7
+		"id": 5
 	},
 	{
 		"title": "Lengüitas",
@@ -69,7 +52,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142071/Panader%C3%ADa%20S%C3%A1nchez/leng%C3%BCitas_qk9f0u.jpg",
 		"code": "A8",
 		"stock": 15,
-		"id": 8
+		"id": 6
 	},
 	{
 		"title": "Palitos",
@@ -78,7 +61,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142071/Panader%C3%ADa%20S%C3%A1nchez/palitoschocolate_gepktt.jpg",
 		"code": "A9",
 		"stock": 15,
-		"id": 9
+		"id": 7
 	},
 	{
 		"title": "Pan de miga",
@@ -87,7 +70,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142072/Panader%C3%ADa%20S%C3%A1nchez/panmiga_dyjsn9.jpg",
 		"code": "A10",
 		"stock": 15,
-		"id": 10
+		"id": 8
 	},
 	{
 		"title": "Pan dulce",
@@ -96,7 +79,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142072/Panader%C3%ADa%20S%C3%A1nchez/pandulce_gkdrjv.jpg",
 		"code": "A11",
 		"stock": 15,
-		"id": 11
+		"id": 9
 	},
 	{
 		"title": "Pan francés",
@@ -105,7 +88,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142071/Panader%C3%ADa%20S%C3%A1nchez/panfranc%C3%A9s_lqecx1.jpg",
 		"code": "A12",
 		"stock": 15,
-		"id": 12
+		"id": 10
 	},
 	{
 		"title": "Pepitas",
@@ -114,7 +97,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142071/Panader%C3%ADa%20S%C3%A1nchez/pepitas_lfs6wt.jpg",
 		"code": "A13",
 		"stock": 15,
-		"id": 13
+		"id": 11
 	},
 	{
 		"title": "Rosca de pascua",
@@ -123,7 +106,7 @@
 		"thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142072/Panader%C3%ADa%20S%C3%A1nchez/rosca-pascua_oldshe.jpg",
 		"code": "A14",
 		"stock": 15,
-		"id": 14
+		"id": 12
 	},
 	{
 		"title": "Tortas",
@@ -132,6 +115,16 @@
 		"thumbnail": "https://res.https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142072/Panader%C3%ADa%20S%C3%A1nchez/tortas_rqv2aj.jpg.com/dp8auiwtw/image/upload/v1686142072/Panader%C3%ADa%20S%C3%A1nchez/rosca-pascua_oldshe.jpg",
 		"code": "A15",
 		"stock": 15,
-		"id": 15
+		"id": 13
+	},
+	{
+		"id": 14,
+		"title": "Cañoncitos",
+		"description": "Con relleno de dulce de leche",
+		"code": "A4",
+		"price": 3500,
+		"status": true,
+		"stock": 18,
+		"category": "dulce"
 	}
 ]

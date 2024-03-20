@@ -263,7 +263,7 @@ const product15 = new Product(
   15
 );
 
-const manejadorProducto = new ProductManager("./src/Productos.json");
+const manejadorProducto = new ProductManager("./src/models/productos.json");
 
 // manejadorProducto.addProduct(product1);
 // manejadorProducto.addProduct(product2);
