@@ -1,0 +1,34 @@
+<div class="real">
+  <h1>
+    ¡Bienvenido al proyecto final de Marianella Torressi!
+  </h1>
+
+  <h1>Esta parte esta creada con Socket.io</h1>
+
+  <h2>Aquí puede agregar nuevos productos</h2>
+  <form action="" class="formulario">
+    <div class="campos">
+      <input type="text" id="title" placeholder="Título" />
+      <input type="text" id="description" placeholder="Descripción" />
+      <input type="number" id="price" placeholder="Precio" />
+      <input type="text" id="thumbnail" placeholder="Imagen" />
+      <input type="text" id="code" placeholder="Código" />
+      <input type="number" id="stock" placeholder="Stock" />
+      <select id="status">
+        <option value="true">Activo</option>
+        <option value="false">Inactivo</option>
+      </select>
+    </div>
+    <button type="button" id="btnEnviar" class="btn btn-primary">Enviar</button>
+  </form>
+
+  <h2>Lista de productos</h2>
+
+  <div id="container"></div>
+
+</div>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"
+></script>
+<script src="js/main.js"></script>
