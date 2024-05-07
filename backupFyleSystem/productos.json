@@ -3,7 +3,7 @@
     "title": "Alfajores",
     "description": "Alfajores de dulce de leche tipo marplatenses y de maicena",
     "price": 1500,
-    "thumbnail": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142068/Panader%C3%ADa%20S%C3%A1nchez/alfajorescuadrado_zbc1bj.jpg",
+    "img": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142068/Panader%C3%ADa%20S%C3%A1nchez/alfajorescuadrado_zbc1bj.jpg",
     "code": "A1",
     "stock": 25,
     "id": 1

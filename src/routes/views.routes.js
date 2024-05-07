@@ -3,7 +3,7 @@ import ProductManager from "../controllers/ProductManager.js";
 
 const router = express.Router();
 
-const manejador = new ProductManager("./src/models/productos.json");
+const manejador = new ProductManager();
 
 router.get("/", async (req, res) => {
   try {
@@ -15,8 +15,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts.hbs");
+router.get("/chat", (req, res) => {
+  res.render("chat.hbs");
 });
 
 export default router;

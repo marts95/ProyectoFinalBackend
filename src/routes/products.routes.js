@@ -1,7 +1,7 @@
 import { Router } from "express";
 import ProductManager from "../controllers/ProductManager.js";
 
-const nuevoProductManager = new ProductManager("./src/models/productos.json");
+const manejador = new ProductManager();
 
 const router = Router();
 
@@ -9,13 +9,13 @@ const router = Router();
 
 router.get("/", async (req, res) => {
   try {
-    const products = await nuevoProductManager.getProducts();
+    const products = await manejador.getProducts();
     console.log(products);
     const { limit } = req.query;
 
     if (limit) {
       const limitNumber = Number(limit);
-      return res.send(products.slice(0, limitNumber));
+      return res.json(products.slice(0, limitNumber));
     } else {
       res.json(products);
     }
@@ -26,161 +26,73 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:pid", async (req, res) => {
+  const { pid } = req.params;
   try {
-    const products = await nuevoProductManager.getProducts();
-    const { pid } = req.params;
+    const products = await manejador.getProductById(pid);
 
-    const producto = products.find((prod) => prod.id === Number(pid));
-    if (producto) {
-      return res.json(producto);
+    if (!products) {
+      return res.json({ error: "Producto no encontrado" });
     }
-
-    res.json({ error: "Producto no encontrado" });
-  } catch {
-    console.error("Error al leer el archivo JSON:", error);
+    res.json(products);
+  } catch (error) {
+    console.error("Error al obtener el producto", error);
     res.status(500).send("Error interno del servidor");
   }
 });
 
 router.post("/", async (req, res) => {
+  const nuevoProducto = req.body;
+
   try {
-    const products = await nuevoProductManager.getProducts();
-    const { id, title, description, code, price, status, stock, category } =
-      req.body;
-
-    const { pid } = req.params;
-    const product = products.find((prod) => prod.id === Number(pid));
-
-    if (products.length === 0) {
-      product.id = 1;
-    } else {
-      products.push({
-        id: products.length + 1,
-        title,
-        description,
-        code,
-        price,
-        status: true,
-        stock,
-        category,
-      });
-
-      res.json({
-        product: {
-          title,
-          description,
-          code,
-          price,
-          status,
-          stock,
-          category,
-        },
-      });
-      
-    }
-
-    nuevoProductManager.saveFile(products);
-
+    await manejador.addProduct(nuevoProducto);
+    res.json("Producto agregado exitosamente");
   } catch {
-    console.error("Error al leer el archivo JSON:", error);
+    console.error("Error al agregar producto", error);
     res.status(500).send("Error interno del servidor");
   }
 
-  //Fede te dejo los objetos para que copies y pegues para probar si se agregan
-  //     {
-  //     "title": "Cañoncitos",
-  //     "description": "Con relleno de dulce de leche",
-  //     "code": "A4",
-  //     "price": 3500,
-  //     "stock": 18,
-  //     "category": "dulce"
-  // }
   // {
-  //     "title": "Chipaquitos",
-  //     "description": "No apto para vegetarianos",
-  //     "code": "A4",
-  //     "price": 1600,
-  //     "stock": 12,
-  //     "category": "salado"
+  //   "title": "Facturas",
+  //   "description": "Gran variedad de facturas de crema pastelera, dulce de membrillo y dulce de leche con y sin decoraciones",
+  //   "price": 1100,
+  //   "img": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142069/Panader%C3%ADa%20S%C3%A1nchez/facturastodas_povmah.jpg",
+  //   "code": "A16",
+  //   "stock": 25,
+  //   "category": "dulce"
   // }
 });
 
 router.put("/:pid", async (req, res) => {
+  const { pid } = req.params;
+  const updatedProduct = req.body;
   try {
-    const products = await nuevoProductManager.getProducts();
-    const { pid } = req.params;
-
-    const index = products.findIndex((prod) => prod.id === Number(pid));
-
-    const { title, description, code, price, status, stock, category } =
-      req.body;
-
-    if (index == -1) {
-      return res.json({ error: "Producto no encontrado" });
-    }
-
-    products[index] = {
-      id: Number(pid),
-      title,
-      description,
-      code,
-      price,
-      status: true,
-      stock,
-      category,
-    };
-
-    res.json({
-      product: {
-        id: Number(pid),
-        title,
-        description,
-        code,
-        price,
-        status: true,
-        stock,
-        category,
-      },
-    });
-    nuevoProductManager.saveFile(products);
+    await manejador.updateProduct(updatedProduct);
+    res.json("Producto actualizado");
   } catch {
-    console.error("Error al leer el archivo JSON:", error);
+    console.error("Error al actualizar producto", error);
     res.status(500).send("Error interno del servidor");
   }
+
   // {
-  //     "title": "Chipaquitos",
-  //     "description": "No apto para vegetarianos",
-  //     "code": "A6",
-  //     "price": 1600,
-  //     "stock": 12,
-  //     "category": "salado"
+  //   "title": "Facturas",
+  //   "description": "Gran variedad de facturas de crema pastelera, dulce de membrillo y dulce de leche con y sin decoraciones",
+  //   "price": 1100,
+  //   "img": "https://res.cloudinary.com/dp8auiwtw/image/upload/v1686142069/Panader%C3%ADa%20S%C3%A1nchez/facturastodas_povmah.jpg",
+  //   "code": "A17",
+  //   "stock": 45,
+  //   "category": "dulce"
   // }
 });
 
 router.delete("/:pid", async (req, res) => {
-try{
- const products = await nuevoProductManager.getProducts();
-   const { pid } = req.params;
-
-  const index = products.findIndex((user) => user.id === Number(pid));
-
-  if (index === -1) {
-    res.json({
-      error: "Usuario no encontrado",
-    });
+  const { pid } = req.params;
+  try {
+    await manejador.deleteProduct(pid);
+    res.json("Producto eliminado");
+  } catch {
+    console.error("Error al leer el archivo JSON:", error);
+    res.status(500).send("Error interno del servidor");
   }
-
-  products.splice(index, 1);
-
-  res.json({
-    status: "Usuario eliminado",
-  });
-
-  nuevoProductManager.saveFile(products);
-}catch{
-   console.error("Error al leer el archivo JSON:", error);
-   res.status(500).send("Error interno del servidor");
-}
 });
 
 export default router;

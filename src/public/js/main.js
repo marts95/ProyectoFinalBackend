@@ -1,52 +1,38 @@
 const socket = io();
 
-socket.on("productos", (data) => {
-  renderizar(data);
+let user;
+const chatBox = document.getElementById("chatBox");
+
+
+Swal.fire({
+  title: "Identificate",
+  input: "text",
+  text: "Ingresa un usuario para identificarte en el chat",
+  inputValidator: (value) => {
+    return !value && " Necesitas escribir un nombre para continuar";
+  },
+  allowOutsideClick: false,
+}).then((result) => {
+  user = result.value;
 });
 
-const renderizar = (productos) => {
-  const container = document.getElementById("container");
-  container.innerHTML = "";
+chatBox.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    if (chatBox.value.trim().length > 0) {
+      socket.emit("message", { user: user, message: chatBox.value });
+      chatBox.value = "";
+    }
+  }
+});
 
-  productos.forEach((item) => {
-    const card = document.createElement("div");
-    card.innerHTML = `
-                        <div class="card">
-                            <img src=${item.thumbnail}" class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">${item.title}</h5>
-                                <p class="card-text">${item.description}</p>
-                                <p class="card-text">${item.price}</p>
-                                <button class="btn btn-primary">Eliminar</button>
-                            </div>
-                        </div>
-                        `;
-    container.appendChild(card);
-    // container.className("card");
+//Listener de mensajes
 
-    card.querySelector("button").addEventListener("click", () => {
-      eliminarProducto(item.id);
-    });
+socket.on("messagesLogs", (data) => {
+  const log = document.getElementById("messagesLogs");
+  let messages = "";
+
+  data.forEach((message) => {
+    messages = messages + `${message.user} dice: ${message.message} <br>`;
   });
-};
-
-const eliminarProducto = (id) => {
-  socket.emit("eliminarProducto", id);
-};
-
-document.getElementById("btnEnviar").addEventListener("click", () => {
-  agregarProducto();
+  log.innerHTML = messages;
 });
-
-const agregarProducto = () => {
-  const producto = {
-    title: document.getElementById("title").value,
-    description: document.getElementById("description").value,
-    price: document.getElementById("price").value,
-    img: document.getElementById("thumbnail").value,
-    code: document.getElementById("code").value,
-    stock: document.getElementById("stock").value,
-    status: document.getElementById("status").value === "true",
-  };
-  socket.emit("agregarProducto", producto);
-};

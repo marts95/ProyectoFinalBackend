@@ -4,6 +4,7 @@ import cartsRouter from "./routes/carts.routes.js";
 import viewsRouter from "./routes/views.routes.js";
 import exphbs from "express-handlebars";
 import { Server } from "socket.io";
+import "./database.js";
 
 const app = express();
 const PUERTO = 8080;
@@ -33,23 +34,18 @@ const httpServer = app.listen(PUERTO, () =>
   console.log(`Escuchando servidor en http://localhost:${PUERTO}`)
 );
 
+import MessageModel from "./models/messages.model.js";
+
 const io = new Server(httpServer);
 
-import ProductManager from "./controllers/ProductManager.js";
-const manejador = new ProductManager("./src/models/productos.json");
+io.on("connection", (socket) => {
+  console.log("Nuevo usuario conectado");
 
-io.on("connection", async (socket) => {
-  console.log("Un cliente conectado");
+  socket.on("message", async (data) => {
+    await MessageModel.create(data);
 
-  socket.emit("productos", await manejador.getProducts());
-
-  socket.on("eliminarProducto", async (id) => {
-    await manejador.deleteProduct(id);
-    socket.emit("productos", await manejador.getProducts());
-  });
-
-  socket.on("agregarProducto", async (producto) => {
-    await manejador.addProduct(producto);
-    socket.emit("productos", await manejador.getProducts());
+    const messages = await MessageModel.find();
+    console.log(messages);
+    io.sockets.emit("messagesLogs", messages);
   });
 });
